@@ -1,0 +1,33 @@
+
+
+[[https://wiki.archlinux.org/index.php/SLiM][Arch linux SLIM Documentation]]
+
+* Change theme
+
+[[https://wiki.archlinux.org/index.php/SLiM#Theming][Arch linux SLIM Documentation]] for theming
+
+** Preview a theme
+
+#+name: preview
+#+header: :var theme='debian-moreblue'
+#+header: :var path='/usr/share/slim/themes'
+#+BEGIN_SRC sh
+slim -p $path/$theme
+#+END_SRC
+
+#+RESULTS: preview
+
+#+CALL: preview(theme='arch-tetra')
+
+#+RESULTS:
+: nil
+
+
+** Set a theme
+
+Install the theme in /usr/share/slim/themes
+
+Change /etc/slim.conf
+current_theme <name-of-the-theme-folder>
+
+
