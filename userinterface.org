@@ -1,12 +1,13 @@
 
+* SLIM loging Manager
 
 [[https://wiki.archlinux.org/index.php/SLiM][Arch linux SLIM Documentation]]
 
-* Change theme
+** Change theme
 
 [[https://wiki.archlinux.org/index.php/SLiM#Theming][Arch linux SLIM Documentation]] for theming
 
-** Preview a theme
+*** Preview a theme
 
 #+name: preview
 #+header: :var theme='debian-moreblue'
@@ -23,11 +24,20 @@ slim -p $path/$theme
 : nil
 
 
-** Set a theme
+*** Set a theme
 
 Install the theme in /usr/share/slim/themes
 
 Change /etc/slim.conf
 current_theme <name-of-the-theme-folder>
 
+* Fonts
+
+User installed fonts in ~/.fonts this also ensures backups of your custom installed fonts. Given the home directory is backed up
+
+Run the follwing command
+
+#+BEGIN_SRC sh
+fc-cache -fv
+#+END_SRC
 
