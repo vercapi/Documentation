@@ -1,0 +1,25 @@
+#+TITLE: Development configuration
+
+* Git
+
+** Initialize new GitHub repo
+
+#+name: initGit
+#+header: :var dir='/home/vercapi/tmp'
+#+header: :var repoName='someRepo'
+#+BEGIN_SRC sh
+cd $dir
+echo "# "$repoName >> README.md
+git init
+git add README.md
+git commit -m "first commit for "$repoName
+git remote add origin https://github.com/vercapi/$repoName.git
+git push -u origin master
+#+END_SRC
+
+*** TODO Make this actually work
+#+CALL: initGit(repoName='awesome' dir="/home/vercapi/.config/awesome")
+
+#+RESULTS:
+: nil
+

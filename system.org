@@ -1,0 +1,148 @@
+#+TITLE: System configuration
+
+* Configuration main
+** TODO link to script on github
+** TODO edit, instal, ... script with command
+* pacman
+** Changes
+*** Remove
+    
+    Removes cascading(c) an removes all packages that becom unneeded(u)
+    pacman -Rcu
+
+** AUR
+
+Make the package
+
+after changing the directory to where the package was extracted
+
+#+BEGIN_SRC sh
+
+makepkg -s
+pacman -U *.pkg.tar.xz
+
+#+END_SRC
+
+List all AUR packages
+
+#+BEGIN_SRC sh
+
+pacman -Qm
+
+#+END_SRC
+
+*** External packages
+
+** [#B] Issues
+
+when "error: key "Antonio Rojas <arojas@us.es>" could not be imported"
+
+try 
+
+#+BEGIN_SRC sh
+sudo pacman-key --populate archlinux
+sudo pacman-key --refresh-keys
+#+END_SRC
+
+If it doesn't work
+
+#+BEGIN_SRC sh
+sudo rm /etc/pacman.d/gnupg/*
+sudo pacman-key --init
+
+#+END_SRC
+* Network
+** Add static IP
+*** TODO Parameterize
+
+#+BEGIN_SRC sh
+
+nmcli connection add type ethernet con-name CEPA-WIRED ifname enp0s20u2 ip4 192.168.209.18/29 gw4 192.168.209.22
+nmcli con mod CEPA-WIRED ipv4.dns "192.168.201.1 192.168.201.21"
+nmcli show CEPA-WIRED
+
+#+END_SRC
+
+#+RESULTS:
+
+** Wireless network
+*** TODO Parameterize
+
+Create a connection manually
+#+BEGIN_SRC sh
+# How to add the password
+nmcli connection add con-name SRN_INT_5 ifname wlp6s0 type wifi ssid  SRN_INT_5
+#+END_SRC
+
+Directly connect to a network
+#+BEGIN_SRC sh
+nmcli dev wifi connect SRN_INT_5 password <pwd>
+#+END_SRC
+
+** Connection management
+*** TODO Parameterize
+
+    Bring down connection
+#+BEGIN_SRC sh
+nmcli c down 'Wired connection 1'
+#+END_SRC
+* Entertainment
+** Music
+   Spotfiy
+   vsxu_player
+* Login
+  using [[https://wiki.archlinux.org/index.php/LightDM][lightDM]]
+
+  Themes: [[https://github.com/shosca/lightdm-webkit-archlinux-theme][arch/mac theme]]
+
+  AUR package: [[https://aur.archlinux.org/packages/lightdm-webkit-greeter/][lightdm-webkit-greeter]]
+
+  copy themes to /usr/share/lightdm-webkit/themes/<theme-name>
+
+  testing: lightdm --test-mode --debug
+
+  updates to config
+
+  lightdm.conf
+  greeter-session=lightdm-webkit-greeter
+  display-setup-script=/etc/lightdm/display_setup.sh
+
+  lightdm-webkit-greeter.conf
+  theme-name=Arch
+  webkit-theme=arch
+
+  add file display_setup.py with following contents
+  xrandr --setprovideroutputsource modesetting NVIDIA-0
+  xrandr --auto
+
+* Graphics
+** Full nvidia
+** Bubmblebee
+   Bumblebee install [[https://wiki.archlinux.org/index.php/Bumblebee][wiki]]
+
+   Includes powersaving prefix apps with optirun that need to run with nvidia
+
+*** Install gotcha's
+   - Install after nvidia stated that bumblebee conflicts with nvidia-libgl, removed nvidia-libgl
+   - Needed to re-install all mesa related stuff because all simlinks where pointing to nvidia
+   - No special xorg.conf was needed  
+
+*** Powersaving with bbswitch
+
+Check status, 
+#+BEGIN_SRC sh
+cat /proc/acpi/bbswitch  
+#+END_SRC
+
+#+RESULTS:
+: 0000:02:00.0 OFF
+
+Turn on
+#+BEGIN_SRC sh
+tee /proc/acpi/bbswitch <<<ON
+#+END_SRC
+
+Turn off
+#+BEGIN_SRC sh
+tee /proc/acpi/bbswitch <<<OFF
+#+END_SR

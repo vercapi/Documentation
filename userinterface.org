@@ -1,3 +1,4 @@
+#+TITLE: User interface configuration
 
 * SLIM loging Manager
 
